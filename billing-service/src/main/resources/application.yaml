@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: billing-service
+  profiles:
+    default: dev
+  rabbitmq:
+    password: rmpassword
+    port: 5672
+    username: rmuser
+  flyway:
+    locations: classpath:db/migration
+  jpa:
+    properties:
+      hibernate:
+        connection:
+          driver_class: org.postgresql.Driver
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+broker:
+  profile: "rabbit"
+  topicExchangeParticipantName: "participant-exchange"
+  queueBillingParticipantName: "billing-participant"
+
+destinations:
+  queues:
+    participant:
+      queue: billing
+      routing-key: create
+  topics:
+    participant:
+      exchange: participant
+      routing-key: create
+
+scheduled-tasks:
+  transfer-inbox: "0/30 * * ? * *"
+  transfer-clean: "0 * * ? * *"

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package ru.fp.example.proto;
+
+option java_package = "ru.fp.receipt.proto";
+option java_outer_classname = "ReceiptProto";
+option java_multiple_files = true;
+
+service ReceiptService {
+  rpc transferReceipt(ReceiptRequest) returns (ReceiptResponse) {}
+}
+
+message ReceiptRequest {
+  repeated Transfer transfers = 1;
+}
+
+message Transfer {
+  string bicCd = 1;
+  string bicDb = 2;
+  string valueDate = 3;
+  double amount = 4;
+  string currency = 5;
+  string guid = 6;
+}
+
+message ReceiptResponse {
+  bool success = 1;
+}

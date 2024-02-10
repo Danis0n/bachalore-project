@@ -1,0 +1,65 @@
+<mxfile host="Electron" modified="2023-12-25T10:39:43.325Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/22.1.11 Chrome/114.0.5735.289 Electron/25.9.8 Safari/537.36" etag="9R-TJz83K5qcPB-oqD3A" version="22.1.11" type="device">
+  <diagram name="Страница — 1" id="rvBMX2S34_dhVf4SoCO1">
+    <mxGraphModel dx="738" dy="569" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="GK2CQimbr_VceYqeuNy3-1" value="Actor" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="140" y="350" width="40" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GK2CQimbr_VceYqeuNy3-2" value="participant" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="210" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GK2CQimbr_VceYqeuNy3-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=30;entryPerimeter=0;" edge="1" parent="1" source="GK2CQimbr_VceYqeuNy3-1" target="GK2CQimbr_VceYqeuNy3-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="155" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GK2CQimbr_VceYqeuNy3-4" value="&amp;nbsp;Логин, Пароль" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" vertex="1" connectable="0" parent="GK2CQimbr_VceYqeuNy3-3">
+          <mxGeometry x="-0.1155" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GK2CQimbr_VceYqeuNy3-5" value="" style="endArrow=classic;html=1;rounded=0;entryX=0;entryY=0;entryDx=0;entryDy=30;entryPerimeter=0;exitX=1;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="GK2CQimbr_VceYqeuNy3-1" target="GK2CQimbr_VceYqeuNy3-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="475" as="sourcePoint" />
+            <mxPoint x="310" y="425" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GK2CQimbr_VceYqeuNy3-9" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Bearer {JWT} + запрос&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="GK2CQimbr_VceYqeuNy3-5">
+          <mxGeometry x="-0.215" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GK2CQimbr_VceYqeuNy3-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.3333333333333333;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0;exitY=0;exitDx=70;exitDy=80;exitPerimeter=0;" edge="1" parent="1" source="GK2CQimbr_VceYqeuNy3-2" target="GK2CQimbr_VceYqeuNy3-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GK2CQimbr_VceYqeuNy3-7" value="JWT токены" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=14;" vertex="1" connectable="0" parent="GK2CQimbr_VceYqeuNy3-6">
+          <mxGeometry x="0.2595" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GK2CQimbr_VceYqeuNy3-8" value="Любой сервер" style="shape=cube;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;darkOpacity=0.05;darkOpacity2=0.1;" vertex="1" parent="1">
+          <mxGeometry x="440" y="401" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="GK2CQimbr_VceYqeuNy3-12" value="" style="endArrow=classic;html=1;rounded=0;exitX=0;exitY=0;exitDx=70;exitDy=80;exitPerimeter=0;" edge="1" parent="1" source="GK2CQimbr_VceYqeuNy3-8" target="GK2CQimbr_VceYqeuNy3-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="650" as="sourcePoint" />
+            <mxPoint x="160" y="570" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="510" y="570" />
+              <mxPoint x="160" y="570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GK2CQimbr_VceYqeuNy3-13" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Приложение верифицирует токен и отправляет ответ&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="GK2CQimbr_VceYqeuNy3-12">
+          <mxGeometry x="0.1102" y="1" relative="1" as="geometry">
+            <mxPoint x="62" as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

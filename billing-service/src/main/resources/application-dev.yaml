@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    username: postgres
+    password: 1234
+    url: jdbc:postgresql://localhost:5432/billing
+    driver-class-name: org.postgresql.Driver
+
+services:
+  core: http://localhost:8091/api/
+  participant: http://localhost:8080/api/
+
+server:
+  port: 8090
+
+grpc:
+  server:
+    port: 9091

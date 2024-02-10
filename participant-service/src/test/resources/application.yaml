@@ -1,0 +1,33 @@
+spring:
+  profiles:
+    active: test
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database: H2
+    show-sql: true
+    databasePlatform: org.hibernate.dialect.H2Dialect
+  flyway:
+    locations: filesystem:src/main/resources/db/migration
+    enabled: true
+    baselineOnMigrate: true
+
+broker:
+  profile: "rest"
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: DEBUG
+services:
+  core: http://localhost:8091/api/
+  billing: http://localhost:8090/api/
+auth:
+  jwt:
+    key: 'secret'

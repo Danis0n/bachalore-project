@@ -1,0 +1,63 @@
+spring:
+  profiles:
+    active: test
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database: H2
+    show-sql: true
+    databasePlatform: org.hibernate.dialect.H2Dialect
+  flyway:
+    locations: filesystem:src/main/resources/db/migration
+    enabled: true
+    baselineOnMigrate: true
+  rabbitmq:
+    password: rmpassword
+    port: 5672
+    username: rmuser
+
+broker:
+  profile: "rabbit"
+#  profile: "rest"
+
+transaction:
+  profile: events
+#  profile: camunda
+
+destinations:
+  queues:
+    participant:
+      queue: core
+      routing-key: create
+  topics:
+    participant:
+      exchange: participant
+      routing-key: create
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: DEBUG
+
+camunda.bpm:
+  admin-user:
+    id: demo
+    password: demo
+  default-serialization-format: application/json
+
+scheduled-tasks:
+  transfer-outbox: "0/30 * * ? * *"
+
+grpc:
+  client:
+    billing-service:
+      address: static://localhost:9091
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext

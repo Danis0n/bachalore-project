@@ -1,0 +1,126 @@
+version: '2.1'
+services:
+  participantdatabase:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: "participant"
+    volumes:
+      - participant-volume:/var/lib/pgsql
+    networks:
+      backend:
+        aliases:
+          - "participantdatabase"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  participant-service:
+    image: participant/participant-service:1.0
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
+      - "BROKER_PROFILE=rest"
+      - "DATABASESERVER_PORT=5432"
+    depends_on:
+      participantdatabase:
+        condition: service_healthy
+    networks:
+      - backend
+
+  coredatabase:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: "core"
+    volumes:
+      - core-volume:/var/lib/pgsql
+    command: -p 5433
+    networks:
+      backend:
+        aliases:
+          - "coredatabase"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  core-service:
+    image: core/core-service:1.0
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
+      - "BROKER_PROFILE=rest"
+      - "TRANSACTION_PROFILE=events"
+      - "DATABASESERVER_PORT=5433"
+    depends_on:
+      coredatabase:
+        condition: service_healthy
+    networks:
+      - backend
+
+  billingdatabase:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1234"
+      POSTGRES_DB: "billing"
+    volumes:
+      - billing-volume:/var/lib/pgsql
+    command: -p 5431
+    networks:
+      backend:
+        aliases:
+          - "billingdatabase"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  billing-service:
+    image: billing/billing-service:1.0
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod"
+      - "DATABASESERVER_PORT=5431"
+      - "BROKER_PROFILE=rest"
+    depends_on:
+      billingdatabase:
+        condition: service_healthy
+    networks:
+      - backend
+
+  rabbitmq:
+    image: rabbitmq:3.12.6-management
+    hostname: rabbitmq
+    restart: always
+    environment:
+      - RABBITMQ_DEFAULT_USER=rmuser
+      - RABBITMQ_DEFAULT_PASS=rmpassword
+    networks:
+      - backend
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - participant-service
+      - core-service
+      - billing-service
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge
+
+volumes:
+  participant-volume:
+  billing-volume:
+  core-volume:

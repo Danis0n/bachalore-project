@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    username: postgres
+    password: 1234
+    url: jdbc:postgresql://coredatabase:5433/core
+    driver-class-name: org.postgresql.Driver
+
+grpc:
+  client:
+    billing-service:
+      address: static://billing-service:9091
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext

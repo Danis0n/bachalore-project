@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: participant-service
+  profiles:
+    default: dev
+  flyway:
+    locations: classpath:db/migration
+  rabbitmq:
+    password: rmpassword
+    port: 5672
+    username: rmuser
+  data:
+    rest:
+      base-path: "/api"
+
+destinations:
+  topics:
+    participant:
+      exchange: participant
+      routing-key: create
+
+broker:
+  profile: "rest"
+
+auth:
+  jwt:
+    key: 'secret'

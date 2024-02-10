@@ -1,0 +1,82 @@
+{
+  "app": {
+    "logout": "Выйти"
+  },
+  "notenoughmoney_error": "Не достаточно денег на аккаунте",
+  "load_error": "Не удалось загрузить данные",
+  "usernotfound_error": "Пользователь не был найден",
+  "common": {
+    "form": {
+      "send": "Отправить"
+    }
+  },
+  "navigation": {
+    "actions": "Действия",
+    "currency": "Валюты",
+    "home": "Главная",
+    "participants": "Участники",
+    "incoming_messages": "Входящие сообщения",
+    "paydocs": "Платежные документы",
+    "outgoing_messages": "Исходящие сообщения",
+    "balances": "Балансы участников",
+    "descriptor": "Комиссии",
+    "report": "Отчеты",
+    "payment_form": "Форма оплаты"
+  },
+  "col": {
+    "currency_code": "Код",
+    "currency_description": "Описание",
+    "debit_balance": "Дебетовый баланс",
+    "credit_balance": "Кредитный баланс",
+    "debit_account": "Дебетовый счет",
+    "credit_account": "Кредитный счет",
+    "amount": "Количество",
+    "currency": "Валюта",
+    "id": "ID",
+    "name": "Имя",
+    "account_name": "Имя аккаунта",
+    "bic": "БИК",
+    "participant_bic": "БИК участника",
+    "sender_bic": "БИК отправителя",
+    "sender": "Отправитель",
+    "type": "Тип",
+    "type_name": "Тип",
+    "message": "Сообщение",
+    "value_date": "Дата исполнения",
+    "start_time": "Время начала",
+    "finish_time": "Время окончания",
+    "step": "Шаг",
+    "reg_date": "Дата регистрации"
+  },
+  "report": {
+    "fill_input": "Ввод данных",
+    "format": "Формат",
+    "format_placeholder": "Формат файла",
+    "date_from": "Дата (от)",
+    "date_to": "Дата (до)",
+    "request_button": "Запросить отчет"
+  },
+  "login": {
+    "welcome": "Форма входа",
+    "login": "Логин",
+    "password": "Пароль",
+    "submit": "Войти",
+    "creation_prompt": "Еще не зарегистрированы?",
+    "creation_link": "Нажмите здесь, чтобы стать участником"
+  },
+  "registration": {
+    "welcome": "Форма создания участника",
+    "login": "Логин нового участника",
+    "password": "Пароль нового участника",
+    "submit": "Регистрация"
+  },
+  "payment_form": {
+    "account": "Счёт",
+    "head": "Форма  перевода",
+    "bic_cd": "Bic отправителя:",
+    "code_cd": "Code отправителя:",
+    "bic_db": "Bic получателя:",
+    "code_db": "Code получателя:",
+    "value": "Сумма:"
+  }
+}

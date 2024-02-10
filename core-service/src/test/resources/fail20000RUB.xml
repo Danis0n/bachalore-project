@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Document xmlns="urn:iso:std:iso:20022:tech:xsd:pacs.008.001.11">
+    <FIToFICstmrCdtTrf>
+        <GrpHdr>
+            <MsgId>20231018RUB0618890331RXVTDDRY</MsgId>
+            <CreDtTm>2023-10-18T19:51:23.547+03:00</CreDtTm>
+            <NbOfTxs>1</NbOfTxs>
+            <CtrlSum>20000</CtrlSum>
+            <SttlmInf>
+                <SttlmMtd>INGA</SttlmMtd>
+            </SttlmInf>
+        </GrpHdr>
+        <CdtTrfTxInf>
+            <PmtId>
+                <InstrId>RUB20231018RXVTDDRYB024910101</InstrId>
+                <EndToEndId>9465106-da75-49b3-9e29-96dea4f9cd23</EndToEndId>
+            </PmtId>
+            <IntrBkSttlmAmt Ccy="RUB">20000</IntrBkSttlmAmt>
+            <ChrgBr>DEBT</ChrgBr>
+            <Dbtr/>
+            <DbtrAgt>
+                <FinInstnId>
+                    <BICFI>LXTFQK66</BICFI>
+                </FinInstnId>
+            </DbtrAgt>
+            <CdtrAgt>
+                <FinInstnId>
+                    <BICFI>RXVTDDRY</BICFI>
+                </FinInstnId>
+            </CdtrAgt>
+            <Cdtr/>
+        </CdtTrfTxInf>
+    </FIToFICstmrCdtTrf>
+</Document>

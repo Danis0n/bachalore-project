@@ -1,0 +1,1 @@
+ALTER TABLE results DROP COLUMN participant_id;

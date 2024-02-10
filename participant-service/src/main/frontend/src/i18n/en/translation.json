@@ -1,0 +1,82 @@
+{
+  "app": {
+    "logout": "Logout"
+  },
+  "notenoughmoney_error": "Not enough money on account",
+  "load_error": "Could not load data",
+  "usernotfound_error": "User was not found",
+  "common": {
+    "form": {
+      "send": "Send"
+    }
+  },
+  "navigation": {
+    "actions": "Actions",
+    "currency": "Currency",
+    "home": "Home",
+    "participants": "Participants",
+    "incoming_messages": "Incoming Messages",
+    "paydocs": "Payment Documents",
+    "outgoing_messages": "Outgoing Messsages",
+    "balances": "Balances",
+    "descriptor": "Commissions",
+    "report": "Reports",
+    "payment_form": "Payment Form"
+  },
+  "col": {
+    "currency_code": "Code",
+    "currency_description": "Description",
+    "debit_balance": "Debit Balance",
+    "credit_balance": "Credit Balance",
+    "debit_account": "Debit Account",
+    "credit_account": "Credit Account",
+    "amount": "Amount",
+    "currency": "Currency",
+    "id": "ID",
+    "name": "Name",
+    "account_name": "Account Name",
+    "bic": "BIC",
+    "participant_bic": "Participant BIC",
+    "sender_bic": "Sender BIC",
+    "sender": "Sender",
+    "type": "Type",
+    "type_name": "Type Name",
+    "message": "Message",
+    "value_date": "Value Date",
+    "start_time": "Start Time",
+    "finish_time": "Finish Time",
+    "step": "Step",
+    "reg_date": "Registration Date"
+  },
+  "report": {
+    "fill_input": "Fill input",
+    "format": "Format",
+    "format_placeholder": "File Format",
+    "date_from": "From Date",
+    "date_to": "To Date",
+    "request_button": "Request report"
+  },
+  "login": {
+    "welcome": "Login form",
+    "login": "Login",
+    "password": "Password",
+    "submit": "Login",
+    "creation_prompt": "Do not have an account yet?",
+    "creation_link": "Click here to register as a participant"
+  },
+  "registration": {
+    "welcome": "Participant registration form",
+    "login": "New participant login",
+    "password": "New participant password",
+    "submit": "Register"
+  },
+  "payment_form": {
+    "account": "Account",
+    "head": "Transfer form",
+    "bic_cd": "Bic sender:",
+    "code_cd": "Code sender:",
+    "bic_db": "Bic recipient:",
+    "code_db": "Code recipient:",
+    "value": "Value"
+  }
+}

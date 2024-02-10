@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    username: postgres
+    password: 1234
+    url: jdbc:postgresql://localhost:5434/receipt
+    driver-class-name: org.postgresql.Driver
+  mail:
+    host: smtp.gmail.com
+    password: # some chars...
+    port: 587
+    username: #email address...
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+grpc:
+  client:
+    receipt-service:
+      address: static://localhost:9092
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext

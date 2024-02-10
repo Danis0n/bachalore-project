@@ -1,0 +1,31 @@
+server:
+  port: 8092
+
+spring:
+  application:
+    name: receipt-service
+  profiles:
+    default: dev
+  flyway:
+    locations: classpath:db/migration
+  rabbitmq:
+    password: rmpassword
+    port: 5672
+    username: rmuser
+
+broker:
+  profile: "rabbit"
+#  profile: "rest"
+
+destinations:
+  queues:
+    participant:
+      queue: receipt
+      routing-key: create
+  topics:
+    participant:
+      exchange: participant
+      routing-key: create
+
+scheduled-tasks:
+  transfer-email: "0/30 * * ? * *"

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0fr9mxs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.16.0">
+  <bpmn:process id="camunda_transfer_process" name="Transaction Processing" isExecutable="true" camunda:historyTimeToLive="21">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_1fp17al</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_0x6ir2l">
+      <bpmn:incoming>Flow_17zq1jg</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1fp17al" sourceRef="StartEvent_1" targetRef="CREATE_PAY_DOC" />
+    <bpmn:sequenceFlow id="SequenceFlow_16gzt2m" sourceRef="CREATE_PAY_DOC" targetRef="CREATE_GUID" />
+    <bpmn:sequenceFlow id="SequenceFlow_142160c" sourceRef="CREATE_GUID" targetRef="Create_Transaction" />
+    <bpmn:sequenceFlow id="SequenceFlow_0tmog9j" sourceRef="Create_Transaction" targetRef="Activate_Transaction" />
+    <bpmn:sequenceFlow id="SequenceFlow_09k3x9n" sourceRef="Activate_Transaction" targetRef="Execute_Transaction" />
+    <bpmn:serviceTask id="CREATE_PAY_DOC" name="создать платёжный документы" camunda:delegateExpression="${createPayDocHandler}">
+      <bpmn:extensionElements />
+      <bpmn:incoming>SequenceFlow_1fp17al</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_16gzt2m</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="CREATE_GUID" name="Присвоение документу GUID" camunda:delegateExpression="${createGuidHandler}">
+      <bpmn:extensionElements />
+      <bpmn:incoming>SequenceFlow_16gzt2m</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_142160c</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Create_Transaction" name="Создание транзакции" camunda:delegateExpression="${createTransactionHandler}">
+      <bpmn:extensionElements />
+      <bpmn:incoming>SequenceFlow_142160c</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0tmog9j</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activate_Transaction" name="Активация транзакции" camunda:delegateExpression="${activateTransactionHandler}">
+      <bpmn:incoming>SequenceFlow_0tmog9j</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_09k3x9n</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Execute_Transaction" name="Выполнение транзакции" camunda:delegateExpression="${executeTransactionHandler}">
+      <bpmn:incoming>SequenceFlow_09k3x9n</bpmn:incoming>
+      <bpmn:outgoing>Flow_09s50ua</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_09s50ua" sourceRef="Execute_Transaction" targetRef="Notification" />
+    <bpmn:serviceTask id="Notification" name="Нотификация" camunda:delegateExpression="${notifyTransactionHandler}">
+      <bpmn:incoming>Flow_09s50ua</bpmn:incoming>
+      <bpmn:outgoing>Flow_17zq1jg</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_17zq1jg" sourceRef="Notification" targetRef="EndEvent_0x6ir2l" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="camunda_transfer_process">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="153" y="133" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-154" y="169" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1su0vlj_di" bpmnElement="CREATE_PAY_DOC">
+        <dc:Bounds x="241" y="111" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17xfydz_di" bpmnElement="CREATE_GUID">
+        <dc:Bounds x="397" y="111" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_01faoor_di" bpmnElement="Create_Transaction">
+        <dc:Bounds x="565" y="111" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vryutg_di" bpmnElement="Activate_Transaction">
+        <dc:Bounds x="735" y="111" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_0o7ij6m" bpmnElement="Execute_Transaction">
+        <dc:Bounds x="920" y="111" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0x6ir2l_di" bpmnElement="EndEvent_0x6ir2l">
+        <dc:Bounds x="1322" y="133" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="840" y="169" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_1jhi28u" bpmnElement="Notification">
+        <dc:Bounds x="1120" y="111" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1fp17al_di" bpmnElement="SequenceFlow_1fp17al">
+        <di:waypoint x="189" y="151" />
+        <di:waypoint x="241" y="151" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="-94" y="141" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_16gzt2m_di" bpmnElement="SequenceFlow_16gzt2m">
+        <di:waypoint x="341" y="151" />
+        <di:waypoint x="397" y="151" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="44" y="126" width="90" height="20" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_142160c_di" bpmnElement="SequenceFlow_142160c">
+        <di:waypoint x="497" y="151" />
+        <di:waypoint x="565" y="151" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="251" y="130" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0tmog9j_di" bpmnElement="SequenceFlow_0tmog9j">
+        <di:waypoint x="665" y="151" />
+        <di:waypoint x="735" y="151" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="420" y="130" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_09k3x9n_di" bpmnElement="SequenceFlow_09k3x9n">
+        <di:waypoint x="835" y="151" />
+        <di:waypoint x="920" y="151" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="666" y="130" width="90" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09s50ua_di" bpmnElement="Flow_09s50ua">
+        <di:waypoint x="1020" y="151" />
+        <di:waypoint x="1120" y="151" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17zq1jg_di" bpmnElement="Flow_17zq1jg">
+        <di:waypoint x="1220" y="151" />
+        <di:waypoint x="1322" y="151" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
