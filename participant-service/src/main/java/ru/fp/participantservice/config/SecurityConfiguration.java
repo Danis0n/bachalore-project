@@ -51,7 +51,8 @@ public class SecurityConfiguration {
                                 "/api/authentication/refresh",
                                 "/",
                                 "/built/bundle.js",
-                                "/favicon.ico"
+                                "/favicon.ico",
+                                "api/transfer"
                         )
                         .permitAll()
                 )

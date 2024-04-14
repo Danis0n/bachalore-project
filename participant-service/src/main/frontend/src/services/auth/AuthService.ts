@@ -1,7 +1,7 @@
 import {participantApi} from "../../client/HttpCommon";
 import {AxiosResponse} from "axios";
 import {AuthResponse, UsernamePassword} from "../../store/user/user.interface";
-import {API} from "../../utils/local-storage";
+import { API } from "../../utils/local-storage";
 
 export const AuthService = {
 
@@ -10,7 +10,7 @@ export const AuthService = {
     },
 
     async register (data: UsernamePassword): Promise<AxiosResponse<AuthResponse>> {
-        return participantApi.post("/authentication/register", data)
+        return participantApi.post(`${API}/authentication/register`, data)
     },
 
     async refresh() {

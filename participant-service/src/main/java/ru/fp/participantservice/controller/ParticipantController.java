@@ -2,7 +2,9 @@ package ru.fp.participantservice.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +31,17 @@ public class ParticipantController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<ParticipantInfoDto> findAll() {
         return participantService.findAll();
     }
+
+    @PostMapping("/manage-lock/{isLock}")
+    @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public boolean manageParticipantLock(@PathVariable Boolean isLock) {
+        return participantService.manageParticipantLock(isLock);
+    }
+
 
 }

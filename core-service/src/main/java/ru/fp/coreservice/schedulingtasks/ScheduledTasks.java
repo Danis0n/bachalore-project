@@ -25,7 +25,7 @@ public class ScheduledTasks {
     private final ReceiptGrpcClient receiptGrpcClient;
     private final PayDocsService payDocsService;
 
-    @Scheduled(cron = "${scheduled-tasks.transfer-outbox}")
+//    @Scheduled(cron = "${scheduled-tasks.transfer-outbox}")
     public void scheduleTransferOutbox() {
         log.info("Schedule TransferOutbox");
         val transfers = transferOutboxRepository.findFirst10OrderByValueDateAsc();

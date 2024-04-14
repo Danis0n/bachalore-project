@@ -52,4 +52,16 @@ public class IncomingMessageController {
             span.finish();
         }
     }
+
+    @PostMapping("test")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createTest() {
+
+        IncomingMessageDto dto = IncomingMessageDto.builder()
+
+                .build();
+
+        incomingMessageService.receivePaymentRequest(dto);
+    }
+
 }

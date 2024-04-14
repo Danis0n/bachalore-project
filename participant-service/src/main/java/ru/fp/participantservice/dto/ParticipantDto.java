@@ -1,5 +1,6 @@
 package ru.fp.participantservice.dto;
 
+import jakarta.annotation.Nullable;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,4 +20,5 @@ public class ParticipantDto implements Serializable {
     private String password;
     private String guid;
     private String email;
+    @Nullable private String role;
 }

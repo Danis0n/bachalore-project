@@ -5,3 +5,14 @@ export interface TransferForm {
     bicDb: string;
     value: number;
 }
+
+export interface AccountForm {
+    bic: string,
+    currency: string
+}
+
+export interface MoneyInput {
+    bic: string
+    accountCode: string
+    value: number
+}

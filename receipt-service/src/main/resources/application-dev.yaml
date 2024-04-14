@@ -2,13 +2,13 @@ spring:
   datasource:
     username: postgres
     password: 1234
-    url: jdbc:postgresql://localhost:5434/receipt
+    url: jdbc:postgresql://localhost:5432/receipt
     driver-class-name: org.postgresql.Driver
   mail:
     host: smtp.gmail.com
-    password: # some chars...
+    password: "some password" # some chars...
     port: 587
-    username: #email address...
+    username: "email here" #email address...
     properties:
       mail:
         smtp:
@@ -17,9 +17,5 @@ spring:
             enable: true
 
 grpc:
-  client:
-    receipt-service:
-      address: static://localhost:9092
-      enableKeepAlive: true
-      keepAliveWithoutCalls: true
-      negotiationType: plaintext
+  server:
+    port: 9092

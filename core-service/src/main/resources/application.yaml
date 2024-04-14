@@ -14,8 +14,8 @@ spring:
     username: rmuser
 
 broker:
-  profile: "rabbit"
-#  profile: "rest"
+#  profile: "rabbit"
+  profile: "rest"
 
 destinations:
   queues:

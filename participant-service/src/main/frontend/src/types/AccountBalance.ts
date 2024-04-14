@@ -4,5 +4,6 @@ export default interface AccountBalance {
     debitBalance: number,
     creditBalance: number,
     code: string,
-    value: number
+    value: number,
+    isActive: boolean
 }

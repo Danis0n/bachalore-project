@@ -1,6 +1,7 @@
 package ru.fp.participantservice.service.auth;
 
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,7 +39,9 @@ public class AuthenticationService {
         Optional<ParticipantCredentials> participant = participantService
                 .findByLogin(dto.getLogin());
 
-        JWTTokenPair jwtTokenPair = jwtService.generatePair(dto.getLogin());
+        String role = participant.get().getParticipant().getRole().getName();
+
+        JWTTokenPair jwtTokenPair = jwtService.generatePair(dto.getLogin(), role);
         ParticipantDto participantDto = ParticipantMapper.mapParticipantToDto.apply(participant.get());
 
         return LoginResponse.builder()
@@ -60,12 +63,11 @@ public class AuthenticationService {
     }
 
     public JWTTokenPair refresh(String token) {
-
         try {
-
             DecodedJWT verifiedJWT = jwtService.getJwtVerifier().verify(token);
             String subject = verifiedJWT.getSubject();
-            return jwtService.generatePair(subject);
+            Claim roles = verifiedJWT.getClaim("roles");
+            return jwtService.generatePair(subject, roles.asString());
 
         } catch (JWTVerificationException e) {
             throw new RefreshTokenException("refresh token: " + token + " is invalid!");

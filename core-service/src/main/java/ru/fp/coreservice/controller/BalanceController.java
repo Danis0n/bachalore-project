@@ -23,6 +23,11 @@ public class BalanceController {
         balancesService.updateBalance(dto);
     }
 
+    @GetMapping("/by-code/{code}")
+    public ResponseEntity<String> getAccountBalance(@PathVariable String code) {
+        return ResponseEntity.ok(balancesService.findCurrencyByAccountCode(code));
+    }
+
     @GetMapping
     public ResponseEntity<List<AccountBalanceDto>> getAccountBalances() {
         return ResponseEntity.ok(balancesService.getAccountBalances());

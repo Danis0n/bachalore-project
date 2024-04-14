@@ -72,7 +72,7 @@ public class TransferService {
         try (Scope scope = tracer.scopeManager().activate(span)) {
             log.info("Transfer from {} to {} {} " + DEFAULT_CURRENCY, dto.getBicCd(), dto.getBicDb(), dto.getValue());
             val curTime = new Timestamp(System.currentTimeMillis());
-            val document = generatePacs008(curTime, dto);
+            Document document = generatePacs008(curTime, dto);
             log.info("pacs.008 was generated");
 
             Participant participant = participantService.findByBicOrThrow(dto.getBicDb());

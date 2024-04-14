@@ -15,76 +15,62 @@ import ru.fp.coreservice.dto.UpdateBalanceDto;
 import ru.fp.coreservice.entity.Account;
 import ru.fp.coreservice.entity.Balances;
 import ru.fp.coreservice.entity.Participant;
+import ru.fp.coreservice.entity.paydoc.PayDoc;
 import ru.fp.coreservice.repository.AccountRepository;
 import ru.fp.coreservice.repository.BalancesRepository;
 import ru.fp.coreservice.repository.CurrencyRepository;
 import ru.fp.coreservice.repository.ParticipantRepository;
+import ru.fp.coreservice.repository.PayDocsRepository;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-@TestMethodOrder(OrderAnnotation.class)
+//@SpringBootTest
+//@AutoConfigureMockMvc
+//@TestMethodOrder(OrderAnnotation.class)
 public class UpdateBalancesTests {
 
-    @Autowired
-    private ObjectMapper mapper;
-    @Autowired
-    private ParticipantRepository participantRepository;
-    @Autowired
-    private CurrencyRepository currencyRepository;
-    @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private BalancesRepository balancesRepository;
-    @Autowired
-    private MockMvc mockMvc;
+//    @Autowired
+//    private ObjectMapper mapper;
+//    @Autowired
+//    private AccountRepository accountRepository;
+//    @Autowired
+//    private BalancesRepository balancesRepository;
+//    @Autowired
+//    private PayDocsRepository payDocsRepository;
+//    @Autowired
+//    private MockMvc mockMvc;
 
-//    @Test
-//    @Order(1)
-//    void testLoadParticipant() {
+    private static final String BIC_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    @Test
+    @Order(1)
+    void test_Create_Participant_OK() {
 //        Participant participant = new Participant();
-//        participant.setBic("111111111");
-//        participant.setIsActive(true);
-//        participant.setDateCreated(new Timestamp(new Date().getTime()));
-//        participant = participantRepository.save(participant);
-//
+//        participant.setBic(generateBic());
 //        Account account = new Account();
 //        account.setParticipant(participant);
 //        account.setCode("lalala");
-//        account.setCurrency(currencyRepository.findByCode("RUB").get());
-//        account.setName("Name");
-//        account.setIsActive(true);
-//        account.setAccType("cash");
-//        account.setOpenDate(new Timestamp(new Date().getTime()));
-//
 //        account = accountRepository.save(account);
-//
 //        Balances balances = new Balances();
 //        balances.setAccount(account);
 //        balances.setCredit(BigDecimal.valueOf(0));
-//        balances.setDebit(BigDecimal.valueOf(0));
-//        balances.setAmount(BigDecimal.valueOf(100));
-//        balances.setDocDebits(0L);
-//        balances.setDocCredits(0L);
-//
 //        balancesRepository.save(balances);
-//    }
-//
-//    @Test
-//    @Order(2)
-//    void testUpdateBalance_When_is_20_negative() throws Exception {
+    }
+
+    @Test
+    @Order(2)
+    void test_UpdateBalance_When_is_20_negative() throws Exception {
 //        UpdateBalanceDto dto = UpdateBalanceDto
 //                .builder()
-//                .bic("111111111")
-//                .currencyCode("RUB")
-//                .value(new BigDecimal(-20))
-//                .accountCode("lalala")
+//                .accountCode("somecode")
 //                .build();
 //
 //        mockMvc.perform(
@@ -93,22 +79,19 @@ public class UpdateBalancesTests {
 //                        .contentType(MediaType.APPLICATION_JSON)
 //        ).andExpect(status().isOk());
 //
-//        Account account = accountRepository.findByCode("lalala").get();
+//        Account account = accountRepository.findByCode("somecode").get();
 //        Balances balances = balancesRepository.findByAccount(account).get();
 //
 //        Assertions.assertEquals(balances.getAmount().doubleValue(), 80.0);
 //        Assertions.assertEquals(balances.getCredit().doubleValue(), 20.0);
 //        Assertions.assertEquals(balances.getDebit().doubleValue(), 0.0);
-//    }
-//
-//    @Test
-//    @Order(3)
-//    void testUpdateBalance_When_is_30_positive() throws Exception {
+    }
+
+    @Test
+    @Order(3)
+    void test_UpdateBalance_When_is_30_positive() throws Exception {
 //        UpdateBalanceDto dto = UpdateBalanceDto
 //                .builder()
-//                .bic("111111111")
-//                .currencyCode("RUB")
-//                .value(new BigDecimal(30))
 //                .accountCode("lalala")
 //                .build();
 //
@@ -124,6 +107,26 @@ public class UpdateBalancesTests {
 //        Assertions.assertEquals(balances.getAmount().doubleValue(), 110.0);
 //        Assertions.assertEquals(balances.getCredit().doubleValue(), 20.0);
 //        Assertions.assertEquals(balances.getDebit().doubleValue(), 30.0);
-//    }
+    }
+
+    @Test
+    @Order(4)
+    void test_FindAllPaydocs_Is_Empty() {
+//        List<PayDoc> payDocs = payDocsRepository.findAll();
+//        Assertions.assertTrue(payDocs.isEmpty());
+    }
+
+    private String generateBic() {
+        final StringBuilder bic = new StringBuilder();
+        final Random random = ThreadLocalRandom.current();
+
+        for (int i = 0; i < 6; i++) {
+            bic.append(BIC_ALPHABET.charAt(random.nextInt(BIC_ALPHABET.length())));
+        }
+
+        bic.append(random.nextInt(10, 99));
+
+        return bic.toString();
+    }
 
 }

@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 public class UpdateBalanceDto {
 
     private String bic;
-    private String currencyCode;
     private String accountCode;
     private BigDecimal value;
 }

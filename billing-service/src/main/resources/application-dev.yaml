@@ -4,6 +4,8 @@ spring:
     password: 1234
     url: jdbc:postgresql://localhost:5432/billing
     driver-class-name: org.postgresql.Driver
+  flyway:
+    enabled: true
 
 services:
   core: http://localhost:8091/api/

@@ -4,6 +4,9 @@ import CoreService from "../../../services/CoreService";
 import {AxiosResponse} from "axios";
 import {useTranslation} from "react-i18next";
 import {Container, Table} from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import {t} from "i18next";
+import {useAuth} from "../../../hook/useAuth";
 
 const AccountBalancesList = () => {
     const [accountBalances, setAccountBalances] = useState<AccountBalance[]>([]);
@@ -36,6 +39,7 @@ const AccountBalancesList = () => {
                     <th>{t('col.debit_balance')}</th>
                     <th>{t('col.credit_balance')}</th>
                     <th>{t('col.amount')}</th>
+                    <th>{t('col.action')}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,14 +58,28 @@ const AccountBalancesList = () => {
     );
 };
 
-const AccountBalanceComponent: React.FC<{ balance: AccountBalance }> = ({balance}) => {
+export const AccountBalanceComponent: React.FC<{ balance: AccountBalance }> = ({balance}) => {
+
+    const {user} = useAuth();
+
+    const handleCloseAccount = () => {
+        CoreService.closeAccount(String(user?.bic), balance.code)
+            .then()
+            .catch((e: Error) => console.log(e))
+    }
+
     return (
         <tr>
-            <td>{balance.name}</td>
+            <td>{balance.code}</td>
             <td>{balance.currencyName}</td>
             <td>{balance.debitBalance}</td>
             <td>{balance.creditBalance}</td>
             <td>{balance.value}</td>
+            <td>
+                <Button variant="outline-danger" onClick={() => {handleCloseAccount()}}>
+                    {t('col.close')}
+                </Button>
+            </td>
         </tr>
     );
 };

@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface BalancesRepository extends JpaRepository<Balances, Long> {
     Optional<Balances> findByAccount(Account account);
 
-    @Query("SELECT b FROM Balances b WHERE b.account.participant.bic = ?1")
+    @Query("SELECT b FROM Balances b WHERE b.account.participant.bic = ?1 AND b.account.isActive = true")
     List<Balances> findBalancesByParticipantBic(String bic);
 }

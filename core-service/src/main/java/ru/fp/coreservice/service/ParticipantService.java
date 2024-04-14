@@ -17,7 +17,10 @@ import ru.fp.coreservice.repository.ParticipantRepository;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -53,7 +56,7 @@ public class ParticipantService {
         String dateFormated = new SimpleDateFormat("yyyyMMdd").format(date);
         Account account = Account.builder()
                 .code(participant.getBic() + currency.getCode() + dateFormated)
-                .name(participant.getBic())
+                .name(participant.getBic() + UUID.randomUUID())
                 .accType("cash")
                 .currency(currency)
                 .isActive(true)
@@ -86,4 +89,78 @@ public class ParticipantService {
         return participantRepository.findByBic(bic);
     }
 
+    public void openAccount(String bic, String currencyCode) {
+        Participant participant = findParticipantByBicOrThrow(bic);
+
+        log.info("Creating Account for Participant with id {}", participant.getId());
+        Currency currency = currencyService.findCurrencyByCodeOrThrow(currencyCode);
+        Timestamp date = new Timestamp(System.currentTimeMillis());
+        String dateFormated = new SimpleDateFormat("yyyyMMdd").format(date);
+        Account account = Account.builder()
+                .code(UUID.randomUUID().toString().substring(0,7) + currency.getCode() + dateFormated)
+                .name(participant.getBic() + UUID.randomUUID())
+                .accType("cash")
+                .currency(currency)
+                .isActive(true)
+                .participant(participant)
+                .openDate(date)
+                .build();
+        account = accountRepository.save(account);
+        log.info("Account was saved under id {}", account.getId());
+
+        log.info("Creating Balance for Account with id {}", account.getId());
+        Balances balance = Balances.builder()
+                .account(account)
+                .credit(BigDecimal.valueOf(0))
+                .debit(BigDecimal.valueOf(0))
+                .docDebits(0L)
+                .docCredits(0L)
+                .amount(BigDecimal.valueOf(0))
+                .build();
+
+        balance = balancesRepository.save(balance);
+        log.info("Balance was saved under id {}", balance.getId());
+    }
+
+    public void closeAccount(String bic, String accountCode) {
+        final Participant participant = findParticipantByBicOrThrow(bic);
+
+        final Account account = accountRepository.findByCode(accountCode).orElseThrow(
+                () -> new NotFoundException("Account with current account code was not found")
+        );
+
+        final List<Account> accounts = accountRepository
+                .findAllByParticipantAndCurrencyAndCloseDateIsNullAndIsActiveIsTrue(participant, account.getCurrency());
+
+        account.setIsActive(false);
+        account.setCloseDate(new Timestamp(System.currentTimeMillis()));
+        accountRepository.save(account);
+
+        final Balances balancesToClose = balancesRepository.findByAccount(account).orElseThrow(() -> new NotFoundException(""));
+
+        if (accounts.size() == 1) {
+            return;
+        }
+
+        Optional<Account> otherAccount = accounts
+                .stream()
+                .filter(acc -> !Objects.equals(acc.getId(), account.getId()))
+                .findFirst();
+
+        if (otherAccount.isPresent()) {
+            final Account accountToUpdate = otherAccount.get();
+            final Balances balancesToUpdate = balancesRepository.findByAccount(accountToUpdate).orElseThrow(() -> new NotFoundException(""));
+
+            balancesToUpdate.setDebit(balancesToClose.getAmount());
+            balancesToUpdate.setAmount(balancesToUpdate.getAmount().add(balancesToClose.getAmount()));
+
+            balancesToClose.setAmount(BigDecimal.ZERO);
+            balancesToClose.setDebit(BigDecimal.ZERO);
+            balancesToClose.setCredit(BigDecimal.ZERO);
+
+            balancesRepository.save(balancesToUpdate);
+            balancesRepository.save(balancesToClose);
+        }
+
+    }
 }

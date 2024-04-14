@@ -48,6 +48,11 @@ const Register = () => {
                                     <Form.Label>{t('registration.password')}</Form.Label>
                                     <Form.Control {...registerForm('password')} type="password" placeholder={t('registration.password')}/>
                                 </Form.Group>
+y
+                                <Form.Group className="mb-3">
+                                    <Form.Label>{t('registration.email')}</Form.Label>
+                                    <Form.Control {...registerForm('email')} type="text" placeholder={t('registration.email')}/>
+                                </Form.Group>
 
                                 <Button variant="primary" type="submit">
                                     {t('registration.submit')}

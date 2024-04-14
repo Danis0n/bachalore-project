@@ -1,6 +1,7 @@
 package ru.fp.participantservice.service.auth;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.NonNull;
@@ -27,8 +28,7 @@ import static ru.fp.participantservice.service.auth.JWTService.USER_ROLE;
 public class AuthorizationService {
 
     private static final String BEARER = "Bearer ";
-    private static final String ROLE_PREFIX = "_ROLE";
-
+    private static final String ROLE_PREFIX = "ROLE_";
     private final JWTService jwtService;
 
     public Optional<Authentication> authorize(HttpServletRequest request) {
@@ -39,7 +39,8 @@ public class AuthorizationService {
         try {
             DecodedJWT jwt = jwtService.getJwtVerifier().verify(token);
             String issuer = jwt.getSubject();
-            Authentication authentication = createAuthentication(issuer, USER_ROLE);
+            Claim role = jwt.getClaim("roles");
+            Authentication authentication = createAuthentication(issuer, role.asString());
 
             return Optional.of(authentication);
 

@@ -39,6 +39,7 @@
         <openxml4j.version>1.0-beta</openxml4j.version>
         <opentracing-jaeger-web.version>3.3.1</opentracing-jaeger-web.version>
         <docker.image.prefix>billing</docker.image.prefix>
+        <flyway-maven-plugin.version>8.5.13</flyway-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -161,6 +162,11 @@
 
 
         <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>${flyway-maven-plugin.version}</version>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

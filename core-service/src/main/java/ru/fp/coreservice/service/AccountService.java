@@ -29,11 +29,18 @@ public class AccountService {
                 );
     }
 
+    public Account findAccountByCodeOrThrow(String accountCode) {
+        return accountRepository.findByCode(accountCode)
+                .orElseThrow(() -> new NotFoundException
+                        ("Account with current code and currency was not found!")
+                );
+    }
+
     public Account findAccountByCodeAndCurrencyOrNull(String accountCode, Currency currency) {
         return accountRepository.findByCodeAndCurrency(accountCode, currency).orElse(null);
     }
 
     public Account findAccountByBicAndCurrency(Participant participant, Currency currency) {
-        return accountRepository.findAllByParticipantAndCurrency(participant, currency).get(0);
+        return accountRepository.findAllByParticipantAndCurrencyAndCloseDateIsNullAndIsActiveIsTrue(participant, currency).get(0);
     }
 }

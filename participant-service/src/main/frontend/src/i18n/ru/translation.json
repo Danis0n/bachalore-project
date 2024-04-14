@@ -7,10 +7,14 @@
   "usernotfound_error": "Пользователь не был найден",
   "common": {
     "form": {
-      "send": "Отправить"
+      "send": "Отправить",
+      "create-account": "Открыть счёт"
     }
   },
   "navigation": {
+    "account_form": "Открыть счёт",
+    "money_form": "Ввести средства",
+    "home-balance": "Ваши счета",
     "actions": "Действия",
     "currency": "Валюты",
     "home": "Главная",
@@ -24,6 +28,8 @@
     "payment_form": "Форма оплаты"
   },
   "col": {
+    "close": "Закрыть",
+    "action": "Действие",
     "currency_code": "Код",
     "currency_description": "Описание",
     "debit_balance": "Дебетовый баланс",
@@ -78,5 +84,16 @@
     "bic_db": "Bic получателя:",
     "code_db": "Code получателя:",
     "value": "Сумма:"
+  },
+  "account_form": {
+    "head": "Форма открытия счёта",
+    "currency": "Выберите валюту"
+  },
+  "money-form": {
+    "head": "Ввести средства",
+    "accountCode": "Счёт",
+    "currency": "Валюта",
+    "value": "Сумма",
+    "bic": "BIC"
   }
 }

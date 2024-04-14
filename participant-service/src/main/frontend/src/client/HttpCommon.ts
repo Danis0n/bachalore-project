@@ -2,6 +2,7 @@ import axios from "axios";
 import {getAccessToken, getRefreshToken, saveTokenToStorage} from "../services/auth/AuthHelper";
 import {logout} from "../store/user/user.actions";
 import {JWTTokenPair} from "../store/user/user.interface";
+import { API } from "../utils/local-storage";
 
 const headers = {
     "Content-type": "application/json"
@@ -48,7 +49,7 @@ participantApi.interceptors.response.use(
                     logout()
                 } else {
                     const resp = await participantApi.post<JWTTokenPair>(
-                        `/authentication/refresh&token=${refreshToken}`
+                        `${API}/authentication/refresh&token=${refreshToken}`
                     );
 
                     saveTokenToStorage(resp.data)

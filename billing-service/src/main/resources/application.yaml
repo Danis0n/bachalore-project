@@ -17,7 +17,8 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
 broker:
-  profile: "rabbit"
+#  profile: "rabbit"
+  profile: "rest"
   topicExchangeParticipantName: "participant-exchange"
   queueBillingParticipantName: "billing-participant"
 

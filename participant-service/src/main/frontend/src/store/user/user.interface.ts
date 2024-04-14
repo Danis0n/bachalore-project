@@ -1,6 +1,7 @@
 export interface UsernamePassword {
     login: string;
     password: string
+    email: string
 }
 
 export interface AuthResponse {
@@ -13,6 +14,7 @@ export interface Participant {
     bic: string
     typeName: string
     login: string
+    role: string
 }
 
 export interface JWTTokenPair {

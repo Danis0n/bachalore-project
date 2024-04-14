@@ -7,10 +7,14 @@
   "usernotfound_error": "User was not found",
   "common": {
     "form": {
+      "create-account": "Create account",
       "send": "Send"
     }
   },
   "navigation": {
+    "account_form": "Create account",
+    "money_form": "Input money",
+    "home-balance": "Your accounts",
     "actions": "Actions",
     "currency": "Currency",
     "home": "Home",
@@ -24,6 +28,8 @@
     "payment_form": "Payment Form"
   },
   "col": {
+    "close": "Close",
+    "action": "Action",
     "currency_code": "Code",
     "currency_description": "Description",
     "debit_balance": "Debit Balance",
@@ -78,5 +84,16 @@
     "bic_db": "Bic recipient:",
     "code_db": "Code recipient:",
     "value": "Value"
+  },
+  "account_form": {
+    "head": "Create account form",
+    "currency": "Choose currency"
+  },
+  "money-form": {
+    "head": "Input money",
+    "accountCode": "Account code",
+    "currency": "Currency",
+    "value": "Sum to input",
+    "bic": "BIC"
   }
 }

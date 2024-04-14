@@ -26,7 +26,6 @@ public class BalancesService {
 
     private final BalancesRepository repository;
     private final AccountService accountService;
-    private final CurrencyService currencyService;
     private final ParticipantService participantService;
 
     public void updateBalance(UpdateBalanceDto dto) {
@@ -35,10 +34,7 @@ public class BalancesService {
         Participant participant = participantService.findParticipantByBicOrThrow(dto.getBic());
         log.debug("Participant was found " + participant.getBic());
 
-        Currency currency = currencyService.findCurrencyByCodeOrThrow(dto.getCurrencyCode());
-        log.debug("Currency was found " + currency.getCode());
-
-        Account account = accountService.findAccountByCodeAndCurrencyOrThrow(dto.getAccountCode(), currency);
+        Account account = accountService.findAccountByCodeOrThrow(dto.getAccountCode());
         log.debug("Account was found " + account.getCode());
 
         if (!account.getParticipant().equals(participant)) {
@@ -89,7 +85,14 @@ public class BalancesService {
                 .toList();
     }
 
+    public List<AccountBalanceDto> getAccountBalances(Long userId) {
+        return repository.findAll().stream()
+                .map(this::mapAccountBalance)
+                .toList();
+    }
+
     public List<AccountBalanceDto> getAccountBalancesByBic(String bic) {
+        log.info("Search accounts by bic");
         return repository.findBalancesByParticipantBic(bic).stream()
                 .map(this::mapAccountBalance)
                 .toList();
@@ -105,6 +108,7 @@ public class BalancesService {
                 .creditBalance(balances.getCredit())
                 .currencyName(account.getCurrency().getCode())
                 .value(balances.getAmount())
+                .isActive(balances.getAccount().getIsActive())
                 .build();
     }
 
@@ -121,4 +125,7 @@ public class BalancesService {
         repository.save(balances);
     }
 
+    public String findCurrencyByAccountCode(String code) {
+        return accountService.findAccountByCodeOrThrow(code).getCurrency().getCode();
+    }
 }

@@ -17,6 +17,7 @@ public class ParticipantMapper {
             participant -> ParticipantDto.builder()
                     .name(participant.getParticipant().getName())
                     .bic(participant.getParticipant().getBic())
+                    .role(participant.getParticipant().getRole().getName())
                     .typeName(participant.getParticipant().getType().getName())
                     .login(participant.getLogin())
                     .build();

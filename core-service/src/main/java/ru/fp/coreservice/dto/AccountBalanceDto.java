@@ -19,4 +19,5 @@ public class AccountBalanceDto {
     BigDecimal creditBalance;
     BigDecimal debitBalance;
     BigDecimal value;
+    Boolean isActive;
 }

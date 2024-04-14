@@ -31,6 +31,7 @@ const PaymentDialog = () => {
         setShow(false)
         setDefaultSettings()
     };
+
     const handleShow = () => {
         setShow(true)
         setDefaultSettings()
@@ -119,12 +120,12 @@ const PaymentForm: FC<Payment> = ({close}) => {
                     <Form.Label>{t('payment_form.account')}
                         <Form.Select
                             {...register('codeCd', {required: true})}
-                            value={user?.bic}
+                            defaultValue={user?.bic}
                         >
                             {balances && balances.map(balance => {
                                 return (
                                     <option value={balance.code} key={balance.name}>
-                                        {balance.name} - {balance.value} - {balance.currencyName}
+                                        {balance.code} - {balance.value} - {balance.currencyName}
                                     </option>
                                 )
                             })}
@@ -151,7 +152,7 @@ const PaymentForm: FC<Payment> = ({close}) => {
                                 {receiverBalances && receiverBalances.map(balance => {
                                     return (
                                         <option value={balance.code} key={balance.name}>
-                                            {balance.name} - {balance.value} - {balance.currencyName}
+                                            {balance.code} - {balance.value} - {balance.currencyName}
                                         </option>
                                     )
                                 })}

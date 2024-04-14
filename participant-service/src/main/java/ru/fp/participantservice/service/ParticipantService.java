@@ -16,6 +16,7 @@ import ru.fp.participantservice.dto.ParticipantInfoDto;
 import ru.fp.participantservice.entity.Type;
 import ru.fp.participantservice.entity.participant.Participant;
 import ru.fp.participantservice.entity.participant.ParticipantCredentials;
+import ru.fp.participantservice.entity.participant.Role;
 import ru.fp.participantservice.exception.NotFoundException;
 import ru.fp.participantservice.mapper.ParticipantMapper;
 import ru.fp.participantservice.repository.ParticipantCredentialsRepository;
@@ -34,6 +35,7 @@ public class ParticipantService implements UserDetailsService {
     private final ParticipantRepository participantRepository;
     private final ParticipantClient participantClient;
     private final TypeService typeService;
+    private final RoleService roleService;
 
     /**
      * Создание партисипанта.
@@ -60,8 +62,10 @@ public class ParticipantService implements UserDetailsService {
         participantDto.setBic(generatedBic);
 
         Type type = typeService.findByName(typeName);
+        Role role = roleService.findByName("USER");
 
         Participant participant = new Participant();
+        participant.setRole(role);
         participant.setEmail(participantDto.getEmail());
         participant.setName(participantName);
         participant.setBic(generatedBic);
@@ -141,5 +145,9 @@ public class ParticipantService implements UserDetailsService {
         bic.append(random.nextInt(10, 99));
 
         return bic.toString();
+    }
+
+    public boolean manageParticipantLock(Boolean isLock) {
+        return true;
     }
 }

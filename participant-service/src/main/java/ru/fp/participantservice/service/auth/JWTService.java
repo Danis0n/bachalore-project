@@ -21,27 +21,28 @@ public class JWTService {
         this.jwtVerifier = JWT.require(algorithm).build();
     }
 
-    public JWTTokenPair generatePair(String login) {
+    public JWTTokenPair generatePair(String login, String role) {
         return JWTTokenPair.builder()
-                .accessToken(generateAccessToken(login))
-                .refreshToken(generateRefreshToken(login))
+                .accessToken(generateAccessToken(login, role))
+                .refreshToken(generateRefreshToken(login, role))
                 .build();
     }
 
-    private String generateAccessToken(String login) {
+    private String generateAccessToken(String login, String role) {
         return JWT.create()
                 .withSubject(login)
                 .withExpiresAt(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
                 .withIssuer("login")
-                .withClaim("roles", USER_ROLE)
+                .withClaim("roles", role)
                 .sign(algorithm);
     }
 
-    private String generateRefreshToken(String login) {
+    private String generateRefreshToken(String login, String role) {
         return JWT.create().
                 withSubject(login).
                 withExpiresAt(new Date(System.currentTimeMillis() + 30 * 30 * 60 * 1000)).
                 withIssuer("login").
+                withClaim("roles", role).
                 sign(algorithm);
     }
 
