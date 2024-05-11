@@ -4,6 +4,7 @@ import ParticipantDataService from "../../../services/ParticipantService";
 import {AxiosResponse} from "axios";
 import {useTranslation} from "react-i18next";
 import {Container, Table} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 
 const ParticipantList: React.FC = () => {
@@ -62,7 +63,7 @@ const Participant: React.FC<{participant: ParticipantData}> = ({ participant }) 
     return (
         <tr>
             <td>{participant.id}</td>
-            <td>{participant.name}</td>
+            <td><Link to={`/user?bic=${participant.bic}`}>{participant.name}</Link></td>
             <td>{participant.bic}</td>
             <td>{participant.type?.name}</td>
             <td>{participant.registrationDate}</td>

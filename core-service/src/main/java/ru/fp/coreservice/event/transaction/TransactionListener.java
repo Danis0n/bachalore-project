@@ -14,7 +14,7 @@ import ru.fp.coreservice.dto.VerifiedAccountsDto;
 import ru.fp.coreservice.entity.incomingmessage.IncomingMessage;
 import ru.fp.coreservice.entity.paydoc.PayDoc;
 import ru.fp.coreservice.entity.transaction.Transaction;
-import ru.fp.coreservice.service.TransactionsService;
+import ru.fp.coreservice.service.TransactionService;
 
 import java.util.Map;
 
@@ -23,7 +23,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class TransactionListener {
 
-    private final TransactionsService transactionsService;
+    private final TransactionService transactionService;
     private final Tracer tracer;
 
     @EventListener
@@ -39,7 +39,7 @@ public class TransactionListener {
             pacs008 = (Pacs008Dto) event.getSource();
             payDoc = event.getPayDoc();
 
-            transaction = transactionsService
+            transaction = transactionService
                     .handleTransactionCreation(pacs008, payDoc);
 
             log.info("Transaction step: A, Paydoc Step: P");
@@ -64,7 +64,7 @@ public class TransactionListener {
             Pacs008Dto pacs008 = (Pacs008Dto) event.getSource();
             Transaction transaction = event.getTransaction();
 
-            verifiedAccounts = transactionsService
+            verifiedAccounts = transactionService
                     .handleTransactionActivation(pacs008, transaction, event.getIncomingMessage());
 
             log.info("Transaction step: E, Paydoc Step: P");
@@ -102,9 +102,9 @@ public class TransactionListener {
 
             log.info("Transaction step: F, Paydoc Step: D");
 
-            synchronized (transactionsService) {
+            synchronized (transactionService) {
 
-                transactionsService.handleTransactionExecution(
+                transactionService.handleTransactionExecution(
                         pacs008, transaction,
                         accountCd, accountDb,
                         incomingMessage
@@ -130,7 +130,7 @@ public class TransactionListener {
         try (Scope scope = tracer.scopeManager().activate(span)) {
             log.info("Event received: TransactionNotification");
 
-            transactionsService.handleTransactionNotification(
+            transactionService.handleTransactionNotification(
                     event.getTransaction(), event.getAccountCdCode(), event.getAccountDbCode()
             );
         }

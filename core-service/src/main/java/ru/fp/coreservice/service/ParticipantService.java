@@ -151,7 +151,7 @@ public class ParticipantService {
             final Account accountToUpdate = otherAccount.get();
             final Balances balancesToUpdate = balancesRepository.findByAccount(accountToUpdate).orElseThrow(() -> new NotFoundException(""));
 
-            balancesToUpdate.setDebit(balancesToClose.getAmount());
+            balancesToUpdate.setDebit(balancesToUpdate.getDebit().add(balancesToClose.getDebit()));
             balancesToUpdate.setAmount(balancesToUpdate.getAmount().add(balancesToClose.getAmount()));
 
             balancesToClose.setAmount(BigDecimal.ZERO);

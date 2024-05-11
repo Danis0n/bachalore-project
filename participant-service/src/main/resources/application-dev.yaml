@@ -1,14 +1,12 @@
 server:
   port: 8093
   address: localhost
-
 spring:
   datasource:
     username: postgres
     password: 1234
     url: jdbc:postgresql://localhost:5432/participant
     driver-class-name: org.postgresql.Driver
-
 services:
   core: http://localhost:8091/api/
   billing: http://localhost:8090/api/

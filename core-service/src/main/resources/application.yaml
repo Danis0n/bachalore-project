@@ -1,6 +1,3 @@
-server:
-  port: 8091
-
 spring:
   application:
     name: core-service
@@ -12,11 +9,9 @@ spring:
     password: rmpassword
     port: 5672
     username: rmuser
-
 broker:
 #  profile: "rabbit"
   profile: "rest"
-
 destinations:
   queues:
     participant:
@@ -26,16 +21,13 @@ destinations:
     participant:
       exchange: participant
       routing-key: create
-
 transaction:
   profile: events
 #  profile: camunda
-
 camunda.bpm:
   admin-user:
     id: demo
     password: demo
   default-serialization-format: application/json
-
 scheduled-tasks:
   transfer-outbox: "0/30 * * ? * *"

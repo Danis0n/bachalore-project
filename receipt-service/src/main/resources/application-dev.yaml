@@ -1,3 +1,5 @@
+server:
+  port: 8092
 spring:
   datasource:
     username: postgres
@@ -15,7 +17,6 @@ spring:
           auth: true
           starttls:
             enable: true
-
 grpc:
   server:
     port: 9092

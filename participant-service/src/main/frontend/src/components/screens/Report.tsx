@@ -4,9 +4,17 @@ import {SubmitHandler, useForm} from "react-hook-form";
 import {billingUrl} from "../../client/HttpCommon";
 import {useTranslation} from "react-i18next";
 import {Button, Card, Container, Form} from "react-bootstrap";
+import {useAuth} from "../../hook/useAuth";
+import {useSearchParams} from "react-router-dom";
+import {API} from "../../utils/local-storage";
 
 const Report: FC = () => {
     const {t} = useTranslation()
+
+    const {user} = useAuth()
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const bic = searchParams.get("bic")
 
     const {
         register: reportForm,
@@ -16,10 +24,12 @@ const Report: FC = () => {
     })
 
     const onSubmit: SubmitHandler<ReportOptions> = (data) => {
-        let link = billingUrl() + '/result' + "?format=" + data.format;
+        let link = billingUrl() + `/${API}/result` + "?format=" + data.format;
 
         if (data.bic) {
             link += '&bic=' + data.bic
+        } else {
+            link += '&bic=' + user!.bic
         }
         if (data.startDate) {
             link += '&startDate=' + data.startDate
@@ -41,10 +51,21 @@ const Report: FC = () => {
                         <Card body>
                             <Form onSubmit={handleSubmit(onSubmit)}>
 
+                                {!!user && user.role == 'ADMIN' &&
+                                    <Form.Group className="mb-3">
+                                        <Form.Label>{t('report.bic')}</Form.Label>
+                                        <Form.Control {...reportForm('bic')}
+                                                     placeholder={t('login.bic')}
+                                                     defaultValue={!!bic ? String(bic) : ""}
+                                        >
+                                        </Form.Control>
+                                    </Form.Group>
+                                }
+
                                 <Form.Group className="mb-3">
                                     <Form.Label>{t('report.format')}</Form.Label>
                                     <Form.Select {...reportForm('format')}
-                                                 placeholder={t('login.login')}
+                                                 placeholder={t('report.format')}
                                                  defaultValue={'pdf'}
                                                  required>
 

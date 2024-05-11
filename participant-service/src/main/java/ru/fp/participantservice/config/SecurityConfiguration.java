@@ -52,7 +52,7 @@ public class SecurityConfiguration {
                                 "/",
                                 "/built/bundle.js",
                                 "/favicon.ico",
-                                "api/transfer"
+                                "/api/transfer"
                         )
                         .permitAll()
                 )

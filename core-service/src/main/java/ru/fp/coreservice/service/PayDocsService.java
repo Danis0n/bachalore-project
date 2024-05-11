@@ -108,4 +108,8 @@ public class PayDocsService {
     public PayDoc findPaydocByGuid(UUID guid) {
         return payDocsRepository.findByGuid(guid);
     }
+
+    public List<PayDoc> findPaydocsByAccountsAndLimit(List<String> accountCodes, Integer limit) {
+        return payDocsRepository.findLatestByAccountsAndLimit(accountCodes, limit);
+    }
 }

@@ -4,7 +4,6 @@ spring:
     password: 1234
     url: jdbc:postgresql://receiptdatabase:5433/receipt
     driver-class-name: org.postgresql.Driver
-
 grpc:
   client:
     billing-service:

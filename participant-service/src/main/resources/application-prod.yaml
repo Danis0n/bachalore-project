@@ -1,14 +1,12 @@
 server:
   port: 8093
   address: participant-service
-
 spring:
   datasource:
     username: postgres
     password: 1234
     url: jdbc:postgresql://participantdatabase:5432/participant
     driver-class-name: org.postgresql.Driver
-
 services:
   core: http://core-service:8091/api/
   billing: http://billing-service:8090/api/

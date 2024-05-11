@@ -6,21 +6,15 @@ import lombok.val;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Component;
-import ru.fp.coreservice.dto.Pacs008Dto;
-import ru.fp.coreservice.entity.incomingmessage.IncomingMessage;
 import ru.fp.coreservice.entity.transaction.Transaction;
-import ru.fp.coreservice.service.TransactionsService;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.UUID;
+import ru.fp.coreservice.service.TransactionService;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class NotifyTransactionHandler implements JavaDelegate {
 
-    private final TransactionsService transactionsService;
+    private final TransactionService transactionService;
 
     @Override
     public void execute(DelegateExecution execution) {
@@ -30,7 +24,7 @@ public class NotifyTransactionHandler implements JavaDelegate {
         String accountCdCode = (String) execution.getVariable("accountCdCode");
         String accountDbCode = (String) execution.getVariable("accountDbCode");
 
-        transactionsService.handleTransactionNotification(
+        transactionService.handleTransactionNotification(
                 transaction, accountCdCode, accountDbCode
         );
     }

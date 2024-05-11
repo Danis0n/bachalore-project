@@ -16,6 +16,7 @@ import {setFail} from "../../../store/payment/payment.actions";
 import {useDebounce} from "../../../hook/useDebounce";
 
 const PaymentDialog = () => {
+
     const {t} = useTranslation();
     const [show, setShow] = useState(false);
 
@@ -152,7 +153,7 @@ const PaymentForm: FC<Payment> = ({close}) => {
                                 {receiverBalances && receiverBalances.map(balance => {
                                     return (
                                         <option value={balance.code} key={balance.name}>
-                                            {balance.code} - {balance.value} - {balance.currencyName}
+                                            {balance.code} - {balance.currencyName}
                                         </option>
                                     )
                                 })}

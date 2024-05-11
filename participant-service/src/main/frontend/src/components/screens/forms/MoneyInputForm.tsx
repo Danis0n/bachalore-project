@@ -121,7 +121,7 @@ const AccountForm: FC<IAccount> = ({close}) => {
                 }
 
                 <Button variant="outline-primary" type="submit">
-                    {t('common.form.create-account')} <FontAwesomeIcon icon={faPaperPlane}/>
+                    {t('common.form.continue')} <FontAwesomeIcon icon={faPaperPlane}/>
                 </Button>
                 {/*{ && <Spinner/>}*/}
 

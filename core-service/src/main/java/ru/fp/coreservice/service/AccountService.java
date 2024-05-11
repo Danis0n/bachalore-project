@@ -9,6 +9,8 @@ import ru.fp.coreservice.entity.Participant;
 import ru.fp.coreservice.exception.NotFoundException;
 import ru.fp.coreservice.repository.AccountRepository;
 
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -42,5 +44,9 @@ public class AccountService {
 
     public Account findAccountByBicAndCurrency(Participant participant, Currency currency) {
         return accountRepository.findAllByParticipantAndCurrencyAndCloseDateIsNullAndIsActiveIsTrue(participant, currency).get(0);
+    }
+
+    public List<Account> findAccountsByParticipant(Participant participant) {
+        return accountRepository.findAllByParticipantAndCloseDateIsNullAndIsActiveIsTrue(participant);
     }
 }

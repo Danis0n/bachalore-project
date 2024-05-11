@@ -36,12 +36,17 @@ public class ParticipantController {
         return participantService.findAll();
     }
 
+    @GetMapping("info/{bic}")
+    @ResponseStatus(HttpStatus.OK)
+    public ParticipantInfoDto findByBic(@PathVariable String bic) {
+        return participantService.findByBic(bic);
+    }
+
     @PostMapping("/manage-lock/{isLock}")
     @ResponseStatus(HttpStatus.OK)
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public boolean manageParticipantLock(@PathVariable Boolean isLock) {
         return participantService.manageParticipantLock(isLock);
     }
-
 
 }

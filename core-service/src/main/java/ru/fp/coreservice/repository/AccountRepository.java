@@ -15,4 +15,5 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     Optional<Account> findByName(String name);
     Optional<Account> findByCodeAndCurrency(String code, Currency currency);
     List<Account> findAllByParticipantAndCurrencyAndCloseDateIsNullAndIsActiveIsTrue(Participant participant, Currency currency);
+    List<Account> findAllByParticipantAndCloseDateIsNullAndIsActiveIsTrue(Participant participant);
 }

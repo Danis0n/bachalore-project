@@ -8,10 +8,12 @@
   "common": {
     "form": {
       "create-account": "Create account",
-      "send": "Send"
+      "send": "Send",
+      "continue": "Continue"
     }
   },
   "navigation": {
+    "continue": "Continue",
     "account_form": "Create account",
     "money_form": "Input money",
     "home-balance": "Your accounts",
@@ -28,6 +30,7 @@
     "payment_form": "Payment Form"
   },
   "col": {
+    "date": "Date",
     "close": "Close",
     "action": "Action",
     "currency_code": "Code",
@@ -55,6 +58,7 @@
     "reg_date": "Registration Date"
   },
   "report": {
+    "bic": "BIC",
     "fill_input": "Fill input",
     "format": "Format",
     "format_placeholder": "File Format",
@@ -95,5 +99,9 @@
     "currency": "Currency",
     "value": "Sum to input",
     "bic": "BIC"
+  },
+  "user-page": {
+    "balance": "Accounts",
+    "transactions-history": "Transaction history"
   }
 }

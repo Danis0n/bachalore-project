@@ -14,6 +14,10 @@ const getAllOutgoingMessages = (): Promise<AxiosResponse<Array<OutgoingMessage>>
     return participantApi.get<Array<OutgoingMessage>>(`${API}/outgoing-message`);
 };
 
+const getByBic = (bic: string) : Promise<AxiosResponse<ParticipantData>> => {
+    return participantApi.get<ParticipantData>(`${API}/participant/info/${bic}`)
+}
+
 const triggerPayment = (data: TransferForm): Promise<AxiosResponse<void>> => {
     return participantApi.post(`${API}/transfer`, data);
 };
@@ -26,7 +30,8 @@ const ParticipantService = {
     getAll,
     getAllOutgoingMessages,
     triggerPayment,
-    getAllCurrencies
+    getAllCurrencies,
+    getByBic
 };
   
 export default ParticipantService;

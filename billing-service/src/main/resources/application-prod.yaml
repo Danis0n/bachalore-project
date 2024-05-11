@@ -4,14 +4,11 @@ spring:
     password: 1234
     url: jdbc:postgresql://billingdatabase:5431/billing
     driver-class-name: org.postgresql.Driver
-
 services:
   core: http://0.0.0.0:80/core/api/
   participant: http:/0.0.0.0:80/api/
-
 server:
   port: 8090
-
 grpc:
   server:
     port: 9091

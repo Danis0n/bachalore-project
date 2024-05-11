@@ -8,7 +8,8 @@
   "common": {
     "form": {
       "send": "Отправить",
-      "create-account": "Открыть счёт"
+      "create-account": "Открыть счёт",
+      "continue": "Продолжить"
     }
   },
   "navigation": {
@@ -28,6 +29,7 @@
     "payment_form": "Форма оплаты"
   },
   "col": {
+    "date": "Дата",
     "close": "Закрыть",
     "action": "Действие",
     "currency_code": "Код",
@@ -55,6 +57,7 @@
     "reg_date": "Дата регистрации"
   },
   "report": {
+    "bic": "БИК",
     "fill_input": "Ввод данных",
     "format": "Формат",
     "format_placeholder": "Формат файла",
@@ -95,5 +98,9 @@
     "currency": "Валюта",
     "value": "Сумма",
     "bic": "BIC"
+  },
+  "user-page": {
+    "balance": "Платежные аккаунты",
+    "transactions-history": "История транзакций"
   }
 }

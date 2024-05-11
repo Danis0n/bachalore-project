@@ -9,7 +9,7 @@ import ru.fp.coreservice.dto.Pacs008Dto;
 import ru.fp.coreservice.dto.VerifiedAccountsDto;
 import ru.fp.coreservice.entity.incomingmessage.IncomingMessage;
 import ru.fp.coreservice.entity.transaction.Transaction;
-import ru.fp.coreservice.service.TransactionsService;
+import ru.fp.coreservice.service.TransactionService;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ActivateTransactionHandler implements JavaDelegate {
 
-    private final TransactionsService transactionsService;
+    private final TransactionService transactionService;
     Map<String, Object> variables;
 
     @Override
@@ -29,7 +29,7 @@ public class ActivateTransactionHandler implements JavaDelegate {
         Transaction transaction = (Transaction) execution.getVariable("transaction");
         IncomingMessage incomingMessage = (IncomingMessage) execution.getVariable("incomingMessage");
 
-        VerifiedAccountsDto verifiedAccounts = transactionsService
+        VerifiedAccountsDto verifiedAccounts = transactionService
                 .handleTransactionActivation(pacs008, transaction, incomingMessage);
 
         variables = new HashMap<>();

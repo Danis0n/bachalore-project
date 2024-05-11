@@ -5,6 +5,7 @@ import AccountBalance from "../types/AccountBalance";
 import CorePayDoc from "../types/CorePayDoc";
 import {API} from "../utils/local-storage";
 import {MoneyInput} from "../store/payment/payment.interface";
+import {Transaction} from "../types/Transaction";
 
 const getAllIncomingMessages = (): Promise<AxiosResponse<Array<CoreIncomingMessage>>> => {
     return coreApi.get<Array<CoreIncomingMessage>>(`${API}/incoming-message`);
@@ -20,6 +21,10 @@ const getAccountBalances = (): Promise<AxiosResponse<AccountBalance[]>> => {
 
 const findBalancesByBic = (bic: string): Promise<AxiosResponse<AccountBalance[]>> => {
     return coreApi.get<AccountBalance[]>(`${API}/balances/by-bic/${bic}`)
+}
+
+const findLatestTransactions = (bic: string, limit: number): Promise<AxiosResponse<Transaction[]>> => {
+    return coreApi.get<Transaction[]>(`${API}/transaction/by-bic/${bic}?limit=${limit}`)
 }
 
 const findCurrencyByBic = (bic: string): Promise<AxiosResponse<string>> => {
@@ -46,7 +51,8 @@ const CoreService = {
     openAccount,
     closeAccount,
     inputMoney,
-    findCurrencyByBic
+    findCurrencyByBic,
+    findLatestTransactions
 };
 
 export default CoreService;

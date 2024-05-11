@@ -89,6 +89,10 @@ public class ParticipantService implements UserDetailsService {
         return participant;
     }
 
+    public ParticipantInfoDto findByBic(String bic) {
+        return ParticipantMapper.mapParticipantToInfoDto.apply(findByBicOrThrow(bic));
+    }
+
     public Participant findByBicOrThrow(String bic) {
         return participantRepository
                 .findByBic(bic)

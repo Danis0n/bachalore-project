@@ -8,14 +8,14 @@ import org.springframework.stereotype.Component;
 import ru.fp.coreservice.dto.Pacs008Dto;
 import ru.fp.coreservice.entity.incomingmessage.IncomingMessage;
 import ru.fp.coreservice.entity.transaction.Transaction;
-import ru.fp.coreservice.service.TransactionsService;
+import ru.fp.coreservice.service.TransactionService;
 
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class ExecuteTransactionHandler implements JavaDelegate {
 
-    private final TransactionsService transactionsService;
+    private final TransactionService transactionService;
 
     @Override
     public void execute(DelegateExecution execution) {
@@ -26,8 +26,8 @@ public class ExecuteTransactionHandler implements JavaDelegate {
         String accountDb = (String) execution.getVariable("accountDbCode");
         IncomingMessage incomingMessage = (IncomingMessage) execution.getVariable("incomingMessage");
 
-        synchronized (transactionsService) {
-            transactionsService.handleTransactionExecution(pacs008, transaction,
+        synchronized (transactionService) {
+            transactionService.handleTransactionExecution(pacs008, transaction,
                     accountCd, accountDb, incomingMessage);
         }
 

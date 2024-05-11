@@ -12,6 +12,7 @@ import Login from "../components/screens/Login";
 import Report from "../components/screens/Report";
 import CurrencyList from "../components/screens/list/CurrencyList";
 import Register from "../components/screens/Register";
+import User from "../components/screens/User";
 
 export default function AppRouter() {
     return (
@@ -30,6 +31,7 @@ export default function AppRouter() {
                     <Route path="/incoming-message" element={<CoreIncomingMessageList />} />
                     <Route path="/outgoing-message" element={<OutgoingMessageList />} />
                     <Route path="/participants" element={<ParticipantList />} />
+                    <Route path="/user" element={<User />} />
                 </Route>
 
                 <Route path="*" element={<div>404... not found </div>} />

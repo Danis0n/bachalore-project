@@ -1,6 +1,3 @@
-server:
-  port: 8092
-
 spring:
   application:
     name: receipt-service
@@ -12,11 +9,9 @@ spring:
     password: rmpassword
     port: 5672
     username: rmuser
-
 broker:
   profile: "rabbit"
 #  profile: "rest"
-
 destinations:
   queues:
     participant:
@@ -26,6 +21,5 @@ destinations:
     participant:
       exchange: participant
       routing-key: create
-
 scheduled-tasks:
   transfer-email: "0/30 * * ? * *"

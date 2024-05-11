@@ -15,13 +15,11 @@ spring:
         connection:
           driver_class: org.postgresql.Driver
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
 broker:
 #  profile: "rabbit"
   profile: "rest"
   topicExchangeParticipantName: "participant-exchange"
   queueBillingParticipantName: "billing-participant"
-
 destinations:
   queues:
     participant:
@@ -31,7 +29,6 @@ destinations:
     participant:
       exchange: participant
       routing-key: create
-
 scheduled-tasks:
   transfer-inbox: "0/30 * * ? * *"
   transfer-clean: "0 * * ? * *"

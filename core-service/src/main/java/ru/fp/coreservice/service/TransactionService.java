@@ -6,6 +6,7 @@ import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.fp.coreservice.dto.Pacs008Dto;
+import ru.fp.coreservice.dto.TransactionDto;
 import ru.fp.coreservice.dto.VerifiedAccountsDto;
 import ru.fp.coreservice.entity.Account;
 import ru.fp.coreservice.entity.Balances;
@@ -24,11 +25,12 @@ import ru.fp.coreservice.repository.TransferOutboxRepository;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class TransactionsService {
+public class TransactionService {
 
     private final TransactionRepository transactionRepository;
     private final BalancesService balancesService;
@@ -38,7 +40,32 @@ public class TransactionsService {
     private final PayDocsService payDocsService;
     private final TransferOutboxRepository transferOutboxRepository;
 
-    @Transactional()
+    public List<TransactionDto> findLatestTransactions(String bic, Integer limit) {
+
+        Participant participant = participantService.findParticipantByBicOrThrow(bic);
+
+        List<Account> accounts = accountService.findAccountsByParticipant(participant);
+
+        List<String> accountCodes = accounts
+                .stream()
+                .map(Account::getCode)
+                .toList();
+
+        List<PayDoc> payDocs = payDocsService.findPaydocsByAccountsAndLimit(accountCodes, limit);
+
+        return payDocs
+                .stream()
+                .map(payDoc -> TransactionDto.builder()
+                        .creditAccount(payDoc.getCreditAcc())
+                        .debitAccount(payDoc.getDebitAcc())
+                        .amount(payDoc.getAmount().toString())
+                        .currency(payDoc.getCurrency().getCode())
+                        .time(payDoc.getValueDate())
+                        .build())
+                .toList();
+    }
+
+    @Transactional
     public Transaction handleTransactionCreation(Pacs008Dto pacs008, PayDoc payDoc) {
         Transaction transaction = create(pacs008);
         transaction.setPayDoc(payDoc);
