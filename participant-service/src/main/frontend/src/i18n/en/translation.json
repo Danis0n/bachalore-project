@@ -75,9 +75,10 @@
     "creation_link": "Click here to register as a participant"
   },
   "registration": {
+    "email": "Email",
     "welcome": "Participant registration form",
-    "login": "New participant login",
-    "password": "New participant password",
+    "login": "Login",
+    "password": "Password",
     "submit": "Register"
   },
   "payment_form": {
@@ -101,7 +102,13 @@
     "bic": "BIC"
   },
   "user-page": {
+    "name": "Name",
+    "bic": "BIC",
     "balance": "Accounts",
     "transactions-history": "Transaction history"
+  },
+  "home-page": {
+    "welcome-admin": "Admin account",
+    "welcome-user": "User account"
   }
 }

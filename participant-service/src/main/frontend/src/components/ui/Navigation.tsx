@@ -53,9 +53,11 @@ const Navigation: React.FC = () => {
                         <Col xs="auto">
                             <LanguageSwitcher/>
                         </Col>
-                        <Col xs="auto">
-                            <PaymentDialog/>
-                        </Col>
+                        {user && user.role != 'ADMIN' &&
+                            <Col xs="auto">
+                                <PaymentDialog/>
+                            </Col>
+                        }
                         <Col xs="auto">
                             <Button variant="outline-danger" onClick={() => onLogout()}>{t('app.logout')}</Button>
                         </Col>

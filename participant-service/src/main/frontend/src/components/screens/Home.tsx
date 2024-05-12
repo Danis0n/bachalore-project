@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {Col, Container, Row, Table} from "react-bootstrap";
+import {Button, Col, Container, NavDropdown, Row, Table} from "react-bootstrap";
 import AccountBalance from "../../types/AccountBalance";
 import CoreService from "../../services/CoreService";
 import {AxiosResponse} from "axios";
@@ -8,6 +8,8 @@ import {useAuth} from "../../hook/useAuth";
 import {AccountBalanceComponent} from "./list/AccountBalancesList";
 import AccountDialog from "./forms/AccountForm";
 import MoneyDialog from "./forms/MoneyInputForm";
+import User from "./User";
+import {Link} from "react-router-dom";
 
 const Home: React.FC = () => {
 
@@ -32,40 +34,86 @@ const Home: React.FC = () => {
 
     return (
         <Container fluid className="mt-5 p-3">
-            <div className="d-flex flex-wrap justify-content-start align-items-center gap-2 mb-3">
-                <AccountDialog/>
-                <MoneyDialog/>
-            </div>
+            {user && user.role != 'ADMIN' &&
+                <div>
+                    <h3>{t('home-page.welcome-user')}</h3>
 
-            <h3 className="text-center text-primary mb-4">{t('navigation.home-balance')}</h3>
+                    <div className="d-flex flex-wrap justify-content-start align-items-center gap-2 mb-3">
+                        <AccountDialog/>
+                        <MoneyDialog/>
+                    </div>
 
-            <div className="table-responsive">
-                <Table striped bordered hover variant="secondary">
-                    <thead className="thead-dark">
-                    <tr>
-                        <th>{t('col.account_name')}</th>
-                        <th>{t('col.currency')}</th>
-                        <th>{t('col.debit_balance')}</th>
-                        <th>{t('col.credit_balance')}</th>
-                        <th>{t('col.amount')}</th>
-                        <th>{t('col.action')}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        accountBalances && accountBalances.length > 0 ?
-                            accountBalances.map((balance, index) => (
-                                <AccountBalanceComponent key={index} balance={balance}/>
-                            )) :
-                            <tr>
-                                <td align="center" colSpan={6} className="text-secondary">
-                                    {t('load_error')}
-                                </td>
-                            </tr>
-                    }
-                    </tbody>
-                </Table>
-            </div>
+                    <div className="d-flex flex-wrap justify-content-start align-items-center gap-2 mb-3">
+                        <Button variant="dark">
+                            <Link to="/currency"
+                                  className="text-white text-decoration-none">{t('navigation.currency')}</Link>
+                        </Button>
+
+                        <Button variant="dark">
+                            <Link className="text-white text-decoration-none"
+                                  to="/descriptor">{t('navigation.descriptor')}</Link>
+                        </Button>
+
+                        <Button variant="dark">
+                            <Link className="text-white text-decoration-none"
+                                  to="/report">{t('navigation.report')}</Link>
+                        </Button>
+                    </div>
+
+                    <User/>
+                </div>
+            }
+
+            {user && user.role == 'ADMIN' &&
+                <div>
+                    <h3>{t('home-page.welcome-admin')}</h3>
+                    <h3>{t('user-page.name')}: {user?.name}</h3>
+
+                    <div className="d-flex flex-wrap justify-content-start align-items-center gap-2 mb-3">
+                        <Button variant="dark">
+                            <Link to="/currency"
+                                  className="text-white text-decoration-none">{t('navigation.currency')}</Link>
+                        </Button>
+
+                        <Button variant="dark">
+                            <Link className="text-white text-decoration-none"
+                                  to="/descriptor">{t('navigation.descriptor')}</Link>
+                        </Button>
+
+                        <Button variant="dark">
+                            <Link className="text-white text-decoration-none"
+                                  to="/participants">{t('navigation.participants')}</Link>
+                        </Button>
+
+                        <Button variant="dark">
+                            <Link className="text-white text-decoration-none"
+                                  to="/incoming-message">{t('navigation.incoming_messages')}</Link>
+                        </Button>
+
+                        <Button variant="dark">
+                            <Link className="text-white text-decoration-none"
+                                  to="/outgoing-message">{t('navigation.outgoing_messages')}</Link>
+                        </Button>
+
+                        <Button variant="dark">
+                            <Link className="text-white text-decoration-none"
+                                  to="/balances">{t('navigation.balances')}</Link>
+                        </Button>
+
+                        <Button variant="dark">
+                            <Link className="text-white text-decoration-none"
+                                  to="/paydocs">{t('navigation.paydocs')}</Link>
+                        </Button>
+
+                        <Button variant="dark">
+                            <Link className="text-white text-decoration-none"
+                                  to="/report">{t('navigation.report')}</Link>
+                        </Button>
+
+                    </div>
+                </div>
+            }
+
         </Container>
 
     )

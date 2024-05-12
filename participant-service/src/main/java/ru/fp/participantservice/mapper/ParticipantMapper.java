@@ -27,6 +27,7 @@ public class ParticipantMapper {
                     .id(participant.getId())
                     .name(participant.getName())
                     .bic(participant.getBic())
+                    .role(participant.getRole().getName())
                     .type(mapTypeToDto.apply(participant.getType()))
                     .registrationDate(participant.getRegistrationDate())
                     .build();

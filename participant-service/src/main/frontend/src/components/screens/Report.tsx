@@ -55,7 +55,7 @@ const Report: FC = () => {
                                     <Form.Group className="mb-3">
                                         <Form.Label>{t('report.bic')}</Form.Label>
                                         <Form.Control {...reportForm('bic')}
-                                                     placeholder={t('login.bic')}
+                                                     placeholder={t('report.bic')}
                                                      defaultValue={!!bic ? String(bic) : ""}
                                         >
                                         </Form.Control>

@@ -12,5 +12,6 @@ public class ParticipantInfoDto {
     private String name;
     private String bic;
     private TypeDto type;
+    private String role;
     private Timestamp registrationDate;
 }
